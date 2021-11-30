@@ -1,0 +1,254 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.0
+-- Dumped by pg_dump version 14.0
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: emlakisletmesi; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA emlakisletmesi;
+
+
+ALTER SCHEMA emlakisletmesi OWNER TO postgres;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: emlak; Type: TABLE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE TABLE emlakisletmesi.emlak (
+    id integer NOT NULL,
+    metrekare bigint NOT NULL,
+    oda_sayisi bigint NOT NULL,
+    kat bigint NOT NULL,
+    bina_kati bigint,
+    isinma_turu character varying,
+    musteri_id bigint NOT NULL,
+    emlak_turu character varying NOT NULL
+);
+
+
+ALTER TABLE emlakisletmesi.emlak OWNER TO postgres;
+
+--
+-- Name: emlak_id_seq; Type: SEQUENCE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE SEQUENCE emlakisletmesi.emlak_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE emlakisletmesi.emlak_id_seq OWNER TO postgres;
+
+--
+-- Name: emlak_id_seq; Type: SEQUENCE OWNED BY; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER SEQUENCE emlakisletmesi.emlak_id_seq OWNED BY emlakisletmesi.emlak.id;
+
+
+--
+-- Name: isyeri; Type: TABLE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE TABLE emlakisletmesi.isyeri (
+    id integer NOT NULL,
+    isletme_adi character varying NOT NULL,
+    yetkili character varying NOT NULL,
+    adres character varying NOT NULL,
+    telefon character varying,
+    fax character varying
+);
+
+
+ALTER TABLE emlakisletmesi.isyeri OWNER TO postgres;
+
+--
+-- Name: isyeri_id_seq; Type: SEQUENCE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE SEQUENCE emlakisletmesi.isyeri_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE emlakisletmesi.isyeri_id_seq OWNER TO postgres;
+
+--
+-- Name: isyeri_id_seq; Type: SEQUENCE OWNED BY; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER SEQUENCE emlakisletmesi.isyeri_id_seq OWNED BY emlakisletmesi.isyeri.id;
+
+
+--
+-- Name: musteri; Type: TABLE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE TABLE emlakisletmesi.musteri (
+    id integer NOT NULL,
+    adi character varying NOT NULL,
+    soyadi character varying NOT NULL,
+    ev_telefonu character varying,
+    cep_telefonu character varying,
+    email character varying
+);
+
+
+ALTER TABLE emlakisletmesi.musteri OWNER TO postgres;
+
+--
+-- Name: musteri_id_seq; Type: SEQUENCE; Schema: emlakisletmesi; Owner: postgres
+--
+
+CREATE SEQUENCE emlakisletmesi.musteri_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE emlakisletmesi.musteri_id_seq OWNER TO postgres;
+
+--
+-- Name: musteri_id_seq; Type: SEQUENCE OWNED BY; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER SEQUENCE emlakisletmesi.musteri_id_seq OWNED BY emlakisletmesi.musteri.id;
+
+
+--
+-- Name: emlak id; Type: DEFAULT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.emlak ALTER COLUMN id SET DEFAULT nextval('emlakisletmesi.emlak_id_seq'::regclass);
+
+
+--
+-- Name: isyeri id; Type: DEFAULT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.isyeri ALTER COLUMN id SET DEFAULT nextval('emlakisletmesi.isyeri_id_seq'::regclass);
+
+
+--
+-- Name: musteri id; Type: DEFAULT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.musteri ALTER COLUMN id SET DEFAULT nextval('emlakisletmesi.musteri_id_seq'::regclass);
+
+
+--
+-- Data for Name: emlak; Type: TABLE DATA; Schema: emlakisletmesi; Owner: postgres
+--
+
+COPY emlakisletmesi.emlak (id, metrekare, oda_sayisi, kat, bina_kati, isinma_turu, musteri_id, emlak_turu) FROM stdin;
+15	78	2	5	3	Kombi	1	Satılık
+16	160	3	20	12	Merkezi	2	Kiralık
+\.
+
+
+--
+-- Data for Name: isyeri; Type: TABLE DATA; Schema: emlakisletmesi; Owner: postgres
+--
+
+COPY emlakisletmesi.isyeri (id, isletme_adi, yetkili, adres, telefon, fax) FROM stdin;
+1	Kale	Mert	Ferat Mah. No:2/21	2222222222	2222222222
+\.
+
+
+--
+-- Data for Name: musteri; Type: TABLE DATA; Schema: emlakisletmesi; Owner: postgres
+--
+
+COPY emlakisletmesi.musteri (id, adi, soyadi, ev_telefonu, cep_telefonu, email) FROM stdin;
+1	Derya	Doğan	5555555555	2222222222	derya@gmail.com
+2	Hakan	Bulut	2222222222	5000000000	hakan@gmail.com
+\.
+
+
+--
+-- Name: emlak_id_seq; Type: SEQUENCE SET; Schema: emlakisletmesi; Owner: postgres
+--
+
+SELECT pg_catalog.setval('emlakisletmesi.emlak_id_seq', 17, true);
+
+
+--
+-- Name: isyeri_id_seq; Type: SEQUENCE SET; Schema: emlakisletmesi; Owner: postgres
+--
+
+SELECT pg_catalog.setval('emlakisletmesi.isyeri_id_seq', 1, true);
+
+
+--
+-- Name: musteri_id_seq; Type: SEQUENCE SET; Schema: emlakisletmesi; Owner: postgres
+--
+
+SELECT pg_catalog.setval('emlakisletmesi.musteri_id_seq', 2, true);
+
+
+--
+-- Name: emlak emlak_pkey; Type: CONSTRAINT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.emlak
+    ADD CONSTRAINT emlak_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: isyeri isyeri_pkey; Type: CONSTRAINT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.isyeri
+    ADD CONSTRAINT isyeri_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: musteri musteri_pkey; Type: CONSTRAINT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.musteri
+    ADD CONSTRAINT musteri_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: emlak musteri_fkey; Type: FK CONSTRAINT; Schema: emlakisletmesi; Owner: postgres
+--
+
+ALTER TABLE ONLY emlakisletmesi.emlak
+    ADD CONSTRAINT musteri_fkey FOREIGN KEY (musteri_id) REFERENCES emlakisletmesi.musteri(id) NOT VALID;
+
+
+--
+-- PostgreSQL database dump complete
+--
+
